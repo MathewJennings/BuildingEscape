@@ -1,0 +1,13 @@
+# Unreal Generated Files
+*/Binaries
+*/Build
+*/DerivedDataCache
+*/Intermediate
+*/Saved
+*_BuiltData.uasset
+
+# Starter Content
+BuildingEscape/Content/StarterContent
+
+# XCode Generated Files
+BuildingEscape/BuildingEscape.xcworkspace/
