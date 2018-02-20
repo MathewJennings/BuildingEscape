@@ -3,7 +3,7 @@
 #include "PositionReport.h"
 #include <Gameframework/Actor.h>
 
-DEFINE_LOG_CATEGORY(TempLog);
+DEFINE_LOG_CATEGORY(PositionReportLog);
 
 // Sets default values for this component's properties
 UPositionReport::UPositionReport()
@@ -20,7 +20,7 @@ void UPositionReport::BeginPlay()
     Super::BeginPlay();
     FString ObjectName = GetOwner()->GetName();
     FString ObjectLocation = GetOwner()->GetTransform().GetLocation().ToString();
-    UE_LOG(TempLog, Warning, TEXT("%s is at %s"), *ObjectName, *ObjectLocation);
+    UE_LOG(PositionReportLog, Warning, TEXT("%s is at %s"), *ObjectName, *ObjectLocation);
 }
 
 

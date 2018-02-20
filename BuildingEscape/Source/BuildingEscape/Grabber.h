@@ -1,21 +1,21 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Mathew Connor Jennings 2018.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "PositionReport.generated.h"
+#include "Grabber.generated.h"
 
-DECLARE_LOG_CATEGORY_EXTERN(PositionReportLog, Log, All);
+DECLARE_LOG_CATEGORY_EXTERN(GrabberLog, Log, All);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class BUILDINGESCAPE_API UPositionReport : public UActorComponent
+class BUILDINGESCAPE_API UGrabber : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:	
 	// Sets default values for this component's properties
-	UPositionReport();
+	UGrabber();
 
 protected:
 	// Called when the game starts
