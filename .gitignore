@@ -11,3 +11,7 @@ BuildingEscape/Content/StarterContent
 
 # XCode Generated Files
 BuildingEscape/BuildingEscape.xcworkspace/
+
+# Visual Studio Generated Files
+BuildingEscape/.vs/
+BuildingEscape.sln
