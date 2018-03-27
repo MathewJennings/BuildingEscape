@@ -1,9 +1,10 @@
 // Copyright Mathew Connor Jennings 2018.
 
 #include "OpenDoor.h"
-#include <Gameframework/Actor.h>
 
 #define OUT
+
+DEFINE_LOG_CATEGORY(OpenDoorLog);
 
 // Sets default values for this component's properties
 UOpenDoor::UOpenDoor()
@@ -21,6 +22,15 @@ void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
     Owner = GetOwner();
+    UOpenDoor::FindPressurePlate();
+}
+
+void UOpenDoor::FindPressurePlate()
+{
+    if (!PressurePlate)
+    {
+        UE_LOG(OpenDoorLog, Error, TEXT("%s is missing a Pressure Plate TriggerVolume!"), *(GetOwner()->GetName()));
+    }
 }
 
 void UOpenDoor::OpenDoor()
@@ -57,6 +67,7 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate()
 	float TotalMass = 0.0f;
 
 	TArray<AActor*> OverlappingActors;
+    if (!PressurePlate) { return 0.0f; }
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 	for (const auto* OverlappingActor : OverlappingActors)
 	{

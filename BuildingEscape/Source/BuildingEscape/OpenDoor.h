@@ -5,8 +5,10 @@
 #include <Engine/TriggerVolume.h>
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include <Gameframework/Actor.h>
 #include "OpenDoor.generated.h"
 
+DECLARE_LOG_CATEGORY_EXTERN(OpenDoorLog, Log, All);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
@@ -28,14 +30,18 @@ private:
     float OpenAngle = 90.0f;
     
     UPROPERTY(EditAnywhere)
-    ATriggerVolume* PressurePlate;
+    ATriggerVolume* PressurePlate = nullptr;
     
     UPROPERTY(EditAnywhere)
     float DoorCloseDelay = 1.0f;
     
     float LastDoorOpenTime;
     
-    AActor* Owner; // The owning door
+    // The owning door
+    AActor* Owner = nullptr;
+    
+    // Find attached Pressure Plate Trigger Volume
+    void FindPressurePlate();
     
     void OpenDoor();
     void CloseDoor();
