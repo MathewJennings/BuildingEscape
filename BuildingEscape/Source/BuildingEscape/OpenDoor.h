@@ -8,6 +8,7 @@
 #include <Gameframework/Actor.h>
 #include "OpenDoor.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDoorEvent);
 DECLARE_LOG_CATEGORY_EXTERN(OpenDoorLog, Log, All);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -20,6 +21,12 @@ public:
 	UOpenDoor();
     // Called every frame
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+    
+    UPROPERTY(BlueprintAssignable)
+    FDoorEvent OnOpen;
+    
+    UPROPERTY(BlueprintAssignable)
+    FDoorEvent OnClose;
 
 protected:
 	// Called when the game starts
@@ -27,24 +34,16 @@ protected:
 
 private:
     UPROPERTY(EditAnywhere)
-    float OpenAngle = 90.0f;
-    
-    UPROPERTY(EditAnywhere)
     ATriggerVolume* PressurePlate = nullptr;
     
     UPROPERTY(EditAnywhere)
-    float DoorCloseDelay = 1.0f;
-    
-    float LastDoorOpenTime;
+    float TriggerMass = 30.0f;
     
     // The owning door
     AActor* Owner = nullptr;
     
     // Find attached Pressure Plate Trigger Volume
     void FindPressurePlate();
-    
-    void OpenDoor();
-    void CloseDoor();
 
 	// Returns total mass in kg
 	float GetTotalMassOfActorsOnPlate();
