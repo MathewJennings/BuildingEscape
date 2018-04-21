@@ -1,13 +1,13 @@
 // Copyright Mathew Connor Jennings 2018.
 
-#include "OpenDoor.h"
+#include "MoveObject.h"
 
 #define OUT
 
-DEFINE_LOG_CATEGORY(OpenDoorLog);
+DEFINE_LOG_CATEGORY(MoveObjectLog);
 
 // Sets default values for this component's properties
-UOpenDoor::UOpenDoor()
+UMoveObject::UMoveObject()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -18,43 +18,43 @@ UOpenDoor::UOpenDoor()
 
 
 // Called when the game starts
-void UOpenDoor::BeginPlay()
+void UMoveObject::BeginPlay()
 {
 	Super::BeginPlay();
-    Owner = GetOwner();
-    UOpenDoor::FindPressurePlate();
+	Owner = GetOwner();
+	UMoveObject::FindPressurePlate();
 }
 
-void UOpenDoor::FindPressurePlate()
+void UMoveObject::FindPressurePlate()
 {
-    if (!PressurePlate)
-    {
-        UE_LOG(OpenDoorLog, Error, TEXT("%s is missing a Pressure Plate TriggerVolume!"), *(GetOwner()->GetName()));
-    }
+	if (!PressurePlate)
+	{
+		UE_LOG(MoveObjectLog, Error, TEXT("%s is missing a Pressure Plate TriggerVolume!"), *(GetOwner()->GetName()));
+	}
 }
 
 // Called every frame
-void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UMoveObject::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	
+
 	// Poll the trigger volume every frame
 	if (GetTotalMassOfQualifyingActorsOnPlate() > TriggerMass)
 	{
-        OnOpen.Broadcast();
-    }
-    else
-    {
-        OnClose.Broadcast();
-    }
+		OnMoveAway.Broadcast();
+	}
+	else
+	{
+		OnMoveBack.Broadcast();
+	}
 }
 
-float UOpenDoor::GetTotalMassOfQualifyingActorsOnPlate()
+float UMoveObject::GetTotalMassOfQualifyingActorsOnPlate()
 {
 	float TotalMass = 0.0f;
 
 	TArray<AActor*> OverlappingActors;
-    if (!PressurePlate) { return 0.0f; }
+	if (!PressurePlate) { return 0.0f; }
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 	for (const auto* OverlappingActor : OverlappingActors)
 	{

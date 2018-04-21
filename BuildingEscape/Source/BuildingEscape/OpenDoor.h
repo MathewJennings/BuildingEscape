@@ -38,6 +38,9 @@ private:
     
     UPROPERTY(EditAnywhere)
     float TriggerMass = 30.0f;
+
+	UPROPERTY(EditAnywhere)
+	FName QualifyingActorTag = FName(TEXT(""));
     
     // The owning door
     AActor* Owner = nullptr;
@@ -46,5 +49,5 @@ private:
     void FindPressurePlate();
 
 	// Returns total mass in kg
-	float GetTotalMassOfActorsOnPlate();
+	float GetTotalMassOfQualifyingActorsOnPlate();
 };
